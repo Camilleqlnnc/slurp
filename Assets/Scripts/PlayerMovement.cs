@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float _moveSpeed = 10f;
-
+    [SerializeField]
+    private Animator _animator;
 
     #endregion
 
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-
+        _animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -33,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        BoundPlayer();
     }
 
     #endregion
@@ -48,40 +48,40 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         _rigidbody.velocity = _directionInput * _moveSpeed;
+
+        if(_directionInput.x < 0 || _directionInput.x > 0)
+        {
+            _animator.SetBool("isRunningUp", false);
+            _animator.SetBool("isRunningDown", false);
+            _animator.SetBool("isRunning", true);
+        }
+        if (_directionInput.y > 0)
+        {
+            _animator.SetBool("isRunningUp", true);
+            _animator.SetBool("isRunningDown", false);
+            _animator.SetBool("isRunning", false);
+        }
+        if (_directionInput.y < 0)
+        {
+            _animator.SetBool("isRunningDown", true);
+            _animator.SetBool("isRunningUp", false);
+            _animator.SetBool("isRunning", false);
+        }
+        if (_directionInput.y == 0)
+        {
+            _animator.SetBool("isRunningDown", false);
+            _animator.SetBool("isRunningUp", false);
+        }
+        if (_directionInput.x == 0)
+        {
+            _animator.SetBool("isRunning", false);
+        }
     }
-
-   
-
-    private void BoundPlayer()
-    {
-        if (transform.position.x <= boundXLeft)
-        {
-            transform.position = new Vector3(boundXLeft, transform.position.y, 0);
-        }
-        else if (transform.position.x >= boundXRight)
-        {
-            transform.position = new Vector3(boundXRight, transform.position.y, 0);
-
-        }
-        else if (transform.position.y <= boundYBottom)
-        {
-            transform.position = new Vector3(transform.position.x, boundYBottom, 0);
-        }
-        else if (transform.position.y >= boundYTop)
-        {
-            transform.position = new Vector3(transform.position.x, boundYTop, 0);
-        }
-    }
-
     #endregion
 
     #region Privates & Protected
     private Vector2 _directionInput;
     private Rigidbody2D _rigidbody;
-    private float boundXLeft = -30f;
-    private float boundXRight = 91f;
-    private float boundYBottom = -53f;
-    private float boundYTop = 28.5f;
     #endregion
 
 }
