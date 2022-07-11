@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _animator = gameObject.GetComponent<Animator>();
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _spriteRenderer.flipX = false;
     }
 
     void Update()
@@ -47,13 +49,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        _rigidbody.velocity = _directionInput * _moveSpeed;
+        _rigidbody.velocity = _directionInput.normalized * _moveSpeed;
 
-        if(_directionInput.x < 0 || _directionInput.x > 0)
+        if (_directionInput.x < 0)
         {
             _animator.SetBool("isRunningUp", false);
             _animator.SetBool("isRunningDown", false);
             _animator.SetBool("isRunning", true);
+            _spriteRenderer.flipX = true;
+        }
+        if (_directionInput.x > 0)
+        {
+            _animator.SetBool("isRunningUp", false);
+            _animator.SetBool("isRunningDown", false);
+            _animator.SetBool("isRunning", true);
+            _spriteRenderer.flipX = false;
         }
         if (_directionInput.y > 0)
         {
@@ -82,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
     #region Privates & Protected
     private Vector2 _directionInput;
     private Rigidbody2D _rigidbody;
+    private SpriteRenderer _spriteRenderer;
     #endregion
 
 }
