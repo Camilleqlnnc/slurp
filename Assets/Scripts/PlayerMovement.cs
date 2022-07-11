@@ -56,14 +56,16 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetBool("isRunningUp", false);
             _animator.SetBool("isRunningDown", false);
             _animator.SetBool("isRunning", true);
-            _spriteRenderer.flipX = true;
+            transform.localScale = new Vector3(-1, 1, 1);
+            //_spriteRenderer.flipX = true;
         }
         if (_directionInput.x > 0)
         {
             _animator.SetBool("isRunningUp", false);
             _animator.SetBool("isRunningDown", false);
             _animator.SetBool("isRunning", true);
-            _spriteRenderer.flipX = false;
+            transform.localScale = new Vector3(1, 1, 1);
+            //_spriteRenderer.flipX = false;
         }
         if (_directionInput.y > 0)
         {
