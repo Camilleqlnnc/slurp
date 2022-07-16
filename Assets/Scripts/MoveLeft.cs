@@ -17,7 +17,7 @@ public class MoveLeft : MonoBehaviour
         Vector3 left = Vector3.left;
         transform.Translate(left * _speed * Time.deltaTime);
 
-        if (this.transform.position.x <= -14.4)
+        if (this.transform.position.x <= -17)
         {
             Destroy(this.gameObject);
         }

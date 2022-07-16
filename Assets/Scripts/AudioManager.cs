@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip RandomClip()
     {
-        int attempts = 3;
+        int attempts = 4;
         AudioClip newClip = audioSources[Random.Range(0, audioSources.Length)];
         while (newClip == lastClip && attempts > 0)
         {

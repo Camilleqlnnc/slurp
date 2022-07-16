@@ -9,6 +9,7 @@ public class ColisionsPnj : MonoBehaviour
     
     [Header("Audio")]
     public AudioSource randomSound;
+    public AudioSource sadAudio;
     public AudioClip[] audioSources;
     AudioClip lastClip;
 
@@ -74,7 +75,7 @@ public class ColisionsPnj : MonoBehaviour
     #region Main Methods
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Tongue"))
+        if (collision.gameObject.CompareTag("Tongue") && !isHappy)
         {
             ChangeSprite();
             randomSound.PlayOneShot(RandomClip());
@@ -82,13 +83,14 @@ public class ColisionsPnj : MonoBehaviour
         else if (collision.gameObject.CompareTag("Limit") && !isHappy)
             {
                 _playerCurrentHP._value--;
+                sadAudio.Play();
                 ShakeScreen(camShakeAmount, camShakeLength);
             }
     }
 
     public AudioClip RandomClip()
     {
-        int attempts = 3;
+        int attempts = 4;
         AudioClip newClip = audioSources[Random.Range(0, audioSources.Length)];
         while (newClip == lastClip && attempts > 0)
         {

@@ -16,7 +16,7 @@ public class MoveRight : MonoBehaviour
     {
         Vector3 right = Vector3.right;
         transform.Translate(right * _speed * Time.deltaTime);
-        if (this.transform.position.x >= 14)
+        if (this.transform.position.x >= 23)
         {
             Destroy(this.gameObject);
         }
