@@ -10,6 +10,8 @@ public class PlayerLick : MonoBehaviour
     private Animator _animator;
     [SerializeField]
     private SpriteRenderer _playerSpriteRenderer;
+
+    public AudioSource _lickAudio;
     #endregion
 
     #region Unity Lifecycle
@@ -32,6 +34,8 @@ public class PlayerLick : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _animator.SetBool("Lick", true);
+            _lickAudio.Play();
+
         }
         else
         {
